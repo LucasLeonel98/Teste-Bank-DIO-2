@@ -1,8 +1,29 @@
-import { Card } from './components/Card';
+import { BrowserRouter } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
+import { Layout } from './components/Layout';
+import { AppContextProvider } from './components/AppContext';
+import MainRoutes from './Routes'
+import { createLocalStorage, getAllLocalStorage } from './services/storage';
+
+
 
 function App() {
+  if (!getAllLocalStorage()) {
+    createLocalStorage()
+  }
+
+
   return (
-    <Card />
+    <BrowserRouter>
+      <AppContextProvider>
+        <ChakraProvider>
+          <Layout>
+            <MainRoutes />
+          </Layout>
+        </ChakraProvider>
+      </AppContextProvider>
+    </BrowserRouter>
+
   );
 }
 
